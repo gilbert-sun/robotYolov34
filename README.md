@@ -9,6 +9,8 @@ This is PET Object detection at Win10
 
 * return right/wrong camera status log at mongoDB
 
+![img.png](img.png)
+
 ## 7 Classes model
 * CLASSES = ["P", "S", "O", "C", "Ot","CH","T"]
 
