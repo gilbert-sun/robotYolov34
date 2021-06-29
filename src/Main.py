@@ -124,19 +124,19 @@ class RobotLogModelServices(object):
         print("delete...")
         self.my_set.remove(model_dic)
 
-    def dbread(self, model_dic):
+    def dbread(self):
         print("find...")
-        data = self.my_set.find(model_dic)
-        for result in data:
-            print(result["Category"], result["Status"])
+        data = self.my_set.find()
+        for idx in range((data.count())):
+            print(idx," : ",data[idx]["Category"]," : ",data[idx] ["Status"])
 
     def dbreadall(self):
         print("list all...\n")
         datas = self.my_set.find()
-        for data in datas:
-            print("\n-------------------\n", data.items())
-            # for k,v in data.items():
-            #     print(k," : ",v)
+        for idx in range(datas.count()):
+                print("\n[{}]----------------------------------------------".format(idx) )
+                for k,v in datas[idx].items():
+                    print(k," : ",v)
 
 
 def check_UsbCamConnection(config, pipeline):
