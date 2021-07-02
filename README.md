@@ -9,9 +9,17 @@ This is PET Object detection at Win10
 
 * return right/wrong camera status log at mongoDB
 
+## Realsense Cam & Depth
+#### ./Main.py
 ![img.png](img.png)
 
+## MongoDB cmd 
 ![img_1.png](img_1.png)
+
+## Play Test video
+#### ./Run_yolo_video.py
+![img_2.png](img_2.png)
+
 ## 7 Classes model
 * CLASSES = ["P", "S", "O", "C", "Ot","CH","T"]
 
