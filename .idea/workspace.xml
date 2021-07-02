@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ed1e1d0-385f-46b1-9f6b-816a24ecdd31" name="Default Changelist" comment="" />
+    <list default="true" id="0ed1e1d0-385f-46b1-9f6b-816a24ecdd31" name="Default Changelist" comment="Add img file for readme.md and modify db read function 1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +15,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Sun Yuan Heng &lt;gilbertsun@itri.org.tw&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1uc2X0dkxyeF8EjgKOv1vfNqHZq" />
@@ -22,9 +30,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mongo" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\e300\PycharmProjects\robotYolov34\src" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -32,7 +47,7 @@
   </component>
   <component name="TaskManager">
     <task id="Default" summary="Default task">
-      <changelist id="" name="Default Changelist" comment="" />
+      <changelist id="0ed1e1d0-385f-46b1-9f6b-816a24ecdd31" name="Default Changelist" comment="" />
       <created>1624950593151</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -40,15 +55,29 @@
       <workItem from="1624950594424" duration="1480000" />
     </task>
     <task active="true" id="LOCAL-00001" summary="New changelist">
-      <changelist id="" name="New changelist" comment="" />
       <created>1624952092787</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1624952092789</updated>
       <workItem from="1624952093683" duration="278000" />
+      <workItem from="1625242731167" duration="940000" />
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add img file for readme.md">
+      <created>1625242896713</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1625242896713</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add img file for readme.md and modify db read function 1">
+      <created>1625242948167</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625242948167</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <option name="trackContextForNewChangelist" value="true" />
     <servers />
   </component>
@@ -65,12 +94,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit" />
     <MESSAGE value="first time commit" />
     <MESSAGE value="first time commit1" />
-    <option name="LAST_COMMIT_MESSAGE" value="first time commit1" />
+    <MESSAGE value="modify db read function" />
+    <MESSAGE value="Add img file for readme.md" />
+    <MESSAGE value="Add img file for readme.md and modify db read function" />
+    <MESSAGE value="Add img file for readme.md and modify db read function 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add img file for readme.md and modify db read function 1" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">

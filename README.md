@@ -11,6 +11,7 @@ This is PET Object detection at Win10
 
 ![img.png](img.png)
 
+![img_1.png](img_1.png)
 ## 7 Classes model
 * CLASSES = ["P", "S", "O", "C", "Ot","CH","T"]
 
