@@ -20,6 +20,15 @@ This is PET Object detection at Win10
 #### ./Run_yolo_video.py
 ![img_2.png](img_2.png)
 
+## MongoDB chart of robot1logdb4/robot1db
+#### http://localhost/mongodb-charts/ 
+![img_3.png](img_3.png)
+
+## MongoDB chart Docker container
+#### https://segmentfault.com/a/1190000023502067
+#### https://docs.atlas.mongodb.com/tutorial/manage-projects/#create-a-project
+![img_4.png](img_4.png)
+
 ## 7 Classes model
 * CLASSES = ["P", "S", "O", "C", "Ot","CH","T"]
 
