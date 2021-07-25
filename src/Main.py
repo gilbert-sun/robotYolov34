@@ -142,7 +142,7 @@ class RobotLogModelServices(object):
                     print(k," : ",v)
 
 def async_wrDB(signal):
-    global old_timetag,mongo,lock
+    global old_timetag,mongo,lock,breakflag
 
     while True:
         signal.wait()
@@ -156,6 +156,8 @@ def async_wrDB(signal):
                 old_timetag = int(datetime.datetime.utcnow().timestamp() * 1000)
         lock.release()
         signal.clear()
+        if breakflag == True:
+            break
 
 def async_wrDB1():
     global old_timetag,mongo
@@ -726,7 +728,8 @@ def run():
     global IS_SAVING, IS_SIMULATING, IS_COMMUNICATION_ACTIVE
     # --------------------------------------------------------------Gilbert_Begin
     global mongo, old_timetag
-    global dbThread,lock,signal
+    global dbThread,lock,signal,breakflag
+    breakflag = False
     signal = threading.Event()
     lock = threading.Lock()
     dbThread = threading.Thread(target = async_wrDB , args=(signal,))
@@ -831,6 +834,8 @@ def run():
 
         key = cv.waitKey(1)
         if key == 27:
+            breakflag = True
+            signal.set()
             break
 
     if IS_COMMUNICATION_ACTIVE:
