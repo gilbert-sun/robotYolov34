@@ -157,6 +157,17 @@ def async_wrDB(signal):
         lock.release()
         signal.clear()
 
+def async_wrDB1():
+    global old_timetag,mongo
+
+    now_timetag = int(datetime.datetime.utcnow().timestamp() * 1000) - 1000
+
+    if (now_timetag > old_timetag):
+                Msg = "------Alive, USB Cam async_wrDB1 connected!-------"
+                mongo.createdb("robot000001", Stype.good, Msg, LEkind.VisionSys)
+                print("\n{}\n".format(Msg))
+                old_timetag = int(datetime.datetime.utcnow().timestamp() * 1000)
+
 def check_UsbCamConnection(config, pipeline):
     global mongo, old_timetag,asyncDB_event,signal
     profile = ""
@@ -165,6 +176,7 @@ def check_UsbCamConnection(config, pipeline):
         Msg = "------Alive, USB Cam check_UsbCamConnection connected!-------"
         # print("\n{}\n".format(Msg))
         signal.set()
+        # async_wrDB1()
     except Exception as e:
         Msg = "------Err, USB Cam doesn't connected!-------"
         mongo.createdb("robot000001", Stype.bad, Msg, LEkind.VisionSys)
@@ -180,6 +192,7 @@ def check_CamStatus(pipeline):
         Msg = "------Alive, USB Cam check_CamStatus connected!-------"
         # print("\n{}\n".format(Msg))
         signal.set()
+        # async_wrDB1()
     except Exception as e:
         Msg = "------Err, USB Cam is suddenly gone!-------"
         mongo.createdb("robot000001", Stype.bad, Msg, LEkind.VisionSys)
@@ -218,7 +231,7 @@ def load_camera():
             align       -> Object to align RGB and DETPH data
             depth_scale -> Conversion factor for depth data
     '''
-    global dbThread
+    global dbThread,signal
     config = rs.config()
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
