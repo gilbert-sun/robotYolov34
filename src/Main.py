@@ -23,12 +23,12 @@ import time
 import os
 import matplotlib.pyplot as plt
 import argparse
-
+import threading
 # --------------------------------------------------------------Gilbert_Begin
 import os, sys
 from enum import IntEnum, Enum
 from pymongo import MongoClient
-import datetime, bson, time
+import datetime, bson, time , threading
 
 # Bottle type == Btype
 PETtype = Enum('', ['P', 'COLOR', 'SOY', 'OIL', 'TRAY', 'CH', 'OTHER'])
@@ -70,22 +70,25 @@ settings = {
 }
 
 class MongoLogDBmodel(object):
+    RobotID = ""
     Content = ""
     Category = ""
     Status = ""
     Datetimetag = ""
     Timestamp = ""
 
-    def __init__(self, v1, v2, v3):
-        self.Datetimetag = bson.Int64(int(datetime.datetime.now().timestamp() * 1000))
-        self.Timestamp = datetime.datetime.now()
+    def __init__(self,v0, v1, v2, v3):
+        self.Datetimetag = bson.Int64(int(datetime.datetime.utcnow().timestamp() * 1000))
+        self.Timestamp = datetime.datetime.utcnow()
+        self.RobotID = v0
         self.Content = v1
         self.Category = v2
         self.Status = v3
 
-    def set(self, v1, v2, v3):
-        self.Datetimetag = bson.Int64(int(datetime.datetime.now().timestamp() * 1000))
-        self.Timestamp = datetime.datetime.now()
+    def set(self, v0,v1, v2, v3):
+        self.Datetimetag = bson.Int64(int(datetime.datetime.utcnow().timestamp() * 1000))
+        self.Timestamp = datetime.datetime.utcnow()
+        self.RobotID = v0
         self.Content = v1
         self.Category = v2
         self.Status = v3
@@ -111,9 +114,9 @@ class RobotLogModelServices(object):
         print("insert...1")
         self.my_set.insert_one(model_dic)
 
-    def createdb(self, status, content, logKind):
+    def createdb(self, robotID, status, content, logKind):
         print("insert...2")
-        log = MongoLogDBmodel(str(content), switch(logKind), switch(status))
+        log = MongoLogDBmodel(robotID, str(content), switch(logKind), switch(status))
         self.my_set.insert_one(log.get())
 
     def update(self, model_dic, newdic):
@@ -138,39 +141,48 @@ class RobotLogModelServices(object):
                 for k,v in datas[idx].items():
                     print(k," : ",v)
 
+def async_wrDB(signal):
+    global old_timetag,mongo,lock
+
+    while True:
+        signal.wait()
+        lock.acquire()
+        now_timetag = int(datetime.datetime.utcnow().timestamp() * 1000) - 1000
+
+        if (now_timetag > old_timetag):
+                Msg = "------Alive, USB Cam connected!-------"
+                mongo.createdb("robot000001", Stype.good, Msg, LEkind.VisionSys)
+                # print("\n{}\n".format(Msg))
+                old_timetag = int(datetime.datetime.utcnow().timestamp() * 1000)
+        lock.release()
+        signal.clear()
 
 def check_UsbCamConnection(config, pipeline):
-    global mongo, old_timetag
+    global mongo, old_timetag,asyncDB_event,signal
     profile = ""
     try:
         profile = pipeline.start(config)
-        now_timetag = int(datetime.datetime.now().timestamp() * 1000) - 1000
-        if (now_timetag > old_timetag):
-            Msg = "------Alive, USB Cam connected!-------"
-            mongo.createdb(Stype.good, Msg, LEkind.VisionSys)
-            print("\n{}\n".format(Msg))
-            old_timetag = int(datetime.datetime.now().timestamp() * 1000)
+        Msg = "------Alive, USB Cam check_UsbCamConnection connected!-------"
+        # print("\n{}\n".format(Msg))
+        signal.set()
     except Exception as e:
         Msg = "------Err, USB Cam doesn't connected!-------"
-        mongo.createdb(Stype.bad, Msg, LEkind.VisionSys)
+        mongo.createdb("robot000001", Stype.bad, Msg, LEkind.VisionSys)
         print("\n{}:{}\n".format(Msg, e))
         sys.exit()
     return profile
 
 def check_CamStatus(pipeline):
-    global mongo, old_timetag
+    global mongo, old_timetag,asyncDB_event,signal
     frames = ""
     try:
         frames = pipeline.wait_for_frames()
-        now_timetag = int(datetime.datetime.now().timestamp() * 1000) - 1000
-        if (now_timetag > old_timetag):
-            Msg = "------Alive, USB Cam connected!-------"
-            mongo.createdb(Stype.good, Msg, LEkind.VisionSys)
-            print("\n{}\n".format(Msg))
-            old_timetag = int(datetime.datetime.now().timestamp() * 1000)
+        Msg = "------Alive, USB Cam check_CamStatus connected!-------"
+        # print("\n{}\n".format(Msg))
+        signal.set()
     except Exception as e:
         Msg = "------Err, USB Cam is suddenly gone!-------"
-        mongo.createdb(Stype.bad, Msg, LEkind.VisionSys)
+        mongo.createdb("robot000001", Stype.bad, Msg, LEkind.VisionSys)
         print("\n{}:{}\n".format(Msg, e))
         sys.exit()
     return frames
@@ -178,7 +190,7 @@ def check_CamStatus(pipeline):
 def check_CamFrame():
     global mongo
     Msg = "------Err, Color / Depth Frame is gone!-------"
-    mongo.createdb(Stype.bad, Msg, LEkind.VisionSys)
+    mongo.createdb("robot000001", Stype.bad, Msg, LEkind.VisionSys)
     print("\n{}\n".format(Msg))
 
 # --------------------------------------------------------------Gilbert_Final
@@ -206,6 +218,7 @@ def load_camera():
             align       -> Object to align RGB and DETPH data
             depth_scale -> Conversion factor for depth data
     '''
+    global dbThread
     config = rs.config()
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
@@ -214,6 +227,7 @@ def load_camera():
 
     pipeline = rs.pipeline()
     # --------------------------------------------------------------Gilbert_Begin
+    dbThread.start()
     profile = check_UsbCamConnection(config, pipeline)
     # --------------------------------------------------------------Gilbert_Finish
     depth_sensor = profile.get_device().first_depth_sensor()
@@ -245,7 +259,7 @@ def load_detector():
     # net = cv.dnn.readNetFromDarknet(r'D:\resources\models\yolov3_spp.cfg', r'D:\resources\models\yolov3_spp.weights')
     # # net = cv.dnn.readNetFromDarknet(r'D:\resources\models\yolov4-custom.cfg', r'D:\resources\models\yolov4-custom.weights')
 
-    classes = open(r'models/clases.txt').read().strip().split('\n')  # ubuntu
+    classes = open(r'../models/clases.txt').read().strip().split('\n')  # ubuntu
     # classes = open(r'/home/gilbert3/darknet/data/coco.names').read().strip().split('\n')
     # classes = open(r'/media/gilbert3/mx500_1/Downloads/yuching7petv4/obj.names').read().strip().split('\n')
     np.random.seed(42)
@@ -253,7 +267,7 @@ def load_detector():
 
     # net = cv.dnn.readNetFromDarknet(r'models\yolov4-tiny.cfg', r'models\yolov4-tiny.weights')
     # net = cv.dnn.readNetFromDarknet(r'models\yolov3.cfg', r'models\yolov3.weights')#win10
-    net = cv.dnn.readNetFromDarknet(r'models/yolov3.cfg', r'models/yolov3.weights')  # ubuntu
+    net = cv.dnn.readNetFromDarknet(r'../models/yolov3-org.cfg', r'../models/yolov3-org.weights')  # ubuntu
     # net = cv.dnn.readNetFromDarknet(r'models/yolov3_spp.cfg', r'models/yolov3_spp.weights')# ubuntu
     # net = cv.dnn.readNetFromDarknet(r'models/yolov4-custom.cfg', r'models/yolov4-custom_best.weights')
 
@@ -699,8 +713,12 @@ def run():
     global IS_SAVING, IS_SIMULATING, IS_COMMUNICATION_ACTIVE
     # --------------------------------------------------------------Gilbert_Begin
     global mongo, old_timetag
+    global dbThread,lock,signal
+    signal = threading.Event()
+    lock = threading.Lock()
+    dbThread = threading.Thread(target = async_wrDB , args=(signal,))
     mongo = RobotLogModelServices()
-    old_timetag = int(datetime.datetime.now().timestamp() * 1000)
+    old_timetag = int(datetime.datetime.utcnow().timestamp() * 1000)
     # --------------------------------------------------------------Gilbert_Finish
     # SECTION Constants
     IS_SAVING = True

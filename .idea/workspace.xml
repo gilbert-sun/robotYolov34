@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ed1e1d0-385f-46b1-9f6b-816a24ecdd31" name="Default Changelist" comment="Add Run_yolo_video.py &amp;&amp; test video:output0006.mp4">
-      <change afterPath="$PROJECT_DIR$/img_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img_4.png" afterDir="false" />
+    <list default="true" id="0ed1e1d0-385f-46b1-9f6b-816a24ecdd31" name="Default Changelist" comment="Add docker img for mongo chart demo handling flow">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +36,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -46,7 +45,29 @@
       <recent name="C:\Users\e300\PycharmProjects\robotYolov34\src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Main">
+    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\e300\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Run_yolo_video" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -69,8 +90,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.Main" />
+      <item itemvalue="Python.Run_yolo_video" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Main" />
         <item itemvalue="Python.Run_yolo_video" />
       </list>
     </recent_temporary>
@@ -95,7 +121,11 @@
       <option name="project" value="LOCAL" />
       <updated>1624952092789</updated>
       <workItem from="1624952093683" duration="278000" />
-      <workItem from="1625242731167" duration="9981000" />
+      <workItem from="1625242731167" duration="42682000" />
+      <workItem from="1626958588979" duration="301000" />
+      <workItem from="1626958994477" duration="31000" />
+      <workItem from="1626959238177" duration="33000" />
+      <workItem from="1626959741739" duration="24983000" />
     </task>
     <task id="LOCAL-00002" summary="Add img file for readme.md">
       <created>1625242896713</created>
@@ -125,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625454845324</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add docker img for mongo chart demo handling flow">
+      <created>1625474371465</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1625474371465</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <option name="trackContextForNewChangelist" value="true" />
     <servers />
   </component>
@@ -154,7 +191,8 @@
     <MESSAGE value="Add img file for readme.md and modify db read function 1" />
     <MESSAGE value="Add img 2 for readme.md" />
     <MESSAGE value="Add Run_yolo_video.py &amp;&amp; test video:output0006.mp4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Run_yolo_video.py &amp;&amp; test video:output0006.mp4" />
+    <MESSAGE value="Add docker img for mongo chart demo handling flow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add docker img for mongo chart demo handling flow" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -169,7 +207,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/robotYolov34$Run_yolo_video.coverage" NAME="Run_yolo_video Coverage Results" MODIFIED="1625454281466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/robotYolov34$Run_yolo_video.coverage" NAME="Run_yolo_video Coverage Results" MODIFIED="1626628434153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/robotYolov34$main.coverage" NAME="Main Coverage Results" MODIFIED="1624948503580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/robotYolov34$Main.coverage" NAME="Main Coverage Results" MODIFIED="1627202463471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
